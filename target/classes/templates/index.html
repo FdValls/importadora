@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+
+<body>
+    <h1>Inicio</h1>
+    <div th:if="${engine != null and !engine.empty}">
+        <table border="1">
+            <tr>
+                <th>Marca:</th>
+                <th>NroSerie:</th>
+                <th>Potencia:</th>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+
+</html>
