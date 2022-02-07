@@ -1,8 +1,11 @@
 package com.fdvalls.importadora.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -11,19 +14,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "wheel")
-public class Wheel {
+@Table(name = "motorcycle")
+public class Motorcycle {
 
     @Id
-    @Column
     private Long id;
-    @Column
+
+    private String chasis;
+
+    private Engine engine;
+
+    @OneToMany
+    private List<Wheel> ruedas;
+
+    private String patente;
+
     private String marca;
-    @Column
-    private Integer rodado;
+
+    private String year;
+
+    private Long kms;
+
+    private boolean estado;
+
+    private int peso;
 
 }
