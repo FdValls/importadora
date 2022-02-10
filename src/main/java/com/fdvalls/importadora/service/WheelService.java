@@ -26,12 +26,12 @@ public class WheelService {
         if (this.wheelRepository.findWheelById(dto.getId()) != null) {
             throw new IllegalArgumentException();
         }
-        this.wheelRepository.saveAndFlush(Wheel.builder()
+        this.wheelRepository.save(Wheel.builder()
                 .id(dto.getId())
                 .marca(dto.getBrand())
                 .rodado(dto.getRolling())
-                .build()
-        );
+                .build());
+
     }
 
 }

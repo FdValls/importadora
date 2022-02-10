@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class WheelDTO {
+    
     private Long id;
     private String brand;
     private Integer rolling;

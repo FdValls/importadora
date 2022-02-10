@@ -34,7 +34,7 @@ public class WheelRepositoryTest {
     }
 
     @Test
-    @Sql(scripts = "/dbscripts/insert_owner.sql")
+    @Sql(scripts = "/dbscripts/insert_wheel.sql")
     void test_findAll() {
         List<Wheel> allWheels = this.wheereRepository.findAll();
         assertFalse(allWheels.isEmpty());

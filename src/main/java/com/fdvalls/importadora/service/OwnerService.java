@@ -33,7 +33,7 @@ public class OwnerService {
         if(dto.getIdentification() == null){
             throw new IllegalArgumentException();
         }
-        this.ownerRepository.save (Owner.builder()
+        this.ownerRepository.save(Owner.builder()
                 .id(dto.getId())
                 .name(dto.getName())
                 .lastname(dto.getLastname())
