@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import com.fdvalls.importadora.dto.CustomerDTO;
 import com.fdvalls.importadora.model.Customer;
 import com.fdvalls.importadora.repository.CustomerRepository;
+import com.fdvalls.importadora.model.Customer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,13 +21,13 @@ import org.mockito.MockitoAnnotations;
 public class OwnerServiceTest {
     
     @Mock
-    private CustomerRepository ownerRepository;
-    private CustomerService ownerService;
+    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
-        when(ownerRepository.findCustomerById(eq(1L)))
+        when(customerRepository.findCustomerById(eq(1L)))
                 .thenReturn(Customer.builder()
                     .id(1L)           
                     .name("Fernando")
@@ -35,12 +36,12 @@ public class OwnerServiceTest {
                     .identification("35323873")
                     .build());
         
-        this.ownerService = new CustomerService(ownerRepository);
+        this.customerService = new CustomerService(customerRepository);
     } 
 
     @Test
     void test_findOwnerByIdentification(){
-        CustomerDTO owner = this.ownerService.findCustomerById(1L);
+        CustomerDTO owner = this.customerService.findCustomerById(1L);
 
         assertNotNull(owner);
         assertEquals("35323873", owner.getIdentification());
@@ -49,9 +50,9 @@ public class OwnerServiceTest {
     @Test
     void test_saveOwner(){
         CustomerDTO dto = new CustomerDTO(2L,"Alejandro", "Valls", 39, "30307509");
-        this.ownerService.saveCustomer(dto);
+        this.customerService.saveCustomer(dto);
 
-        verify(ownerRepository, times(1)).save(any());
+        verify(customerRepository, times(1)).save(any());
     }
 
 

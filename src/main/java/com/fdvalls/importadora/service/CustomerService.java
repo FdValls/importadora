@@ -17,9 +17,9 @@ public class CustomerService {
          * Buscar un Owner en el repositorio (supuestamente una DB)
          * Convertir ese Owner al dto
          */
-        Customer customer = this.customerRepository.findCustomerById(id);
+        Customer owner = this.customerRepository.findCustomerById(id);
 
-        return this.transformModelToDTO(customer);
+        return this.transformModelToDTO(owner);
     }
 
     private CustomerDTO transformModelToDTO(Customer model) {
