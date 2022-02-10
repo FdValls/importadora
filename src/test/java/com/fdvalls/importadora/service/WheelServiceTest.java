@@ -43,7 +43,7 @@ public class WheelServiceTest {
     }
 
     @Test
-    void test_saveOwner(){
+    void test_saveWheel(){
         WheelDTO dto = new WheelDTO(2L, "Pirelli Super City", 17);
         this.wheelService.saveWheel(dto);
 
