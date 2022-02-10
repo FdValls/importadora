@@ -8,9 +8,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.fdvalls.importadora.dto.OwnerDTO;
-import com.fdvalls.importadora.model.Owner;
-import com.fdvalls.importadora.repository.OwnerRepository;
+import com.fdvalls.importadora.dto.CustomerDTO;
+import com.fdvalls.importadora.model.Customer;
+import com.fdvalls.importadora.repository.CustomerRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,14 +20,14 @@ import org.mockito.MockitoAnnotations;
 public class OwnerServiceTest {
     
     @Mock
-    private OwnerRepository ownerRepository;
-    private OwnerService ownerService;
+    private CustomerRepository ownerRepository;
+    private CustomerService ownerService;
 
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
-        when(ownerRepository.findOwnerById(eq(1L)))
-                .thenReturn(Owner.builder()
+        when(ownerRepository.findCustomerById(eq(1L)))
+                .thenReturn(Customer.builder()
                     .id(1L)           
                     .name("Fernando")
                     .lastname("Valls")
@@ -35,12 +35,12 @@ public class OwnerServiceTest {
                     .identification("35323873")
                     .build());
         
-        this.ownerService = new OwnerService(ownerRepository);
+        this.ownerService = new CustomerService(ownerRepository);
     } 
 
     @Test
     void test_findOwnerByIdentification(){
-        OwnerDTO owner = this.ownerService.findOwnerById(1L);
+        CustomerDTO owner = this.ownerService.findCustomerById(1L);
 
         assertNotNull(owner);
         assertEquals("35323873", owner.getIdentification());
@@ -48,8 +48,8 @@ public class OwnerServiceTest {
 
     @Test
     void test_saveOwner(){
-        OwnerDTO dto = new OwnerDTO(2L,"Alejandro", "Valls", 39, "30307509");
-        this.ownerService.saveOwner(dto);
+        CustomerDTO dto = new CustomerDTO(2L,"Alejandro", "Valls", 39, "30307509");
+        this.ownerService.saveCustomer(dto);
 
         verify(ownerRepository, times(1)).save(any());
     }
