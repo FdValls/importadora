@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.fdvalls.importadora.dto.OwnerDTO;
-import com.fdvalls.importadora.model.Owner;
+import com.fdvalls.importadora.model.Customer;
 import com.fdvalls.importadora.repository.OwnerRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,13 +21,13 @@ public class OwnerServiceTest {
     
     @Mock
     private OwnerRepository ownerRepository;
-    private OwnerService ownerService;
+    private CustomerService ownerService;
 
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
         when(ownerRepository.findOwnerById(eq(1L)))
-                .thenReturn(Owner.builder()
+                .thenReturn(Customer.builder()
                     .id(1L)           
                     .name("Fernando")
                     .lastname("Valls")
@@ -35,7 +35,7 @@ public class OwnerServiceTest {
                     .identification("35323873")
                     .build());
         
-        this.ownerService = new OwnerService(ownerRepository);
+        this.ownerService = new CustomerService(ownerRepository);
     } 
 
     @Test

@@ -13,12 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Dealer {
 
+   private Long id;
    private String razonSocial;
    private String cuil;
    private String direccion;
    private String telefono;
    private List<String> redes;
    private List<Motorcycle> motos;
-   private List<Dealer> clientes;
+   private List<Customer> clientes;
 
 }

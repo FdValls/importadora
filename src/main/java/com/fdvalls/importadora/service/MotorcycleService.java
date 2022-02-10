@@ -36,6 +36,7 @@ public class MotorcycleService {
             throw new IllegalArgumentException();
         }
         this.motorcycleRepository.save(Motorcycle.builder()
+                .id(dto.getId())
                 .marca(dto.getBrand())
                 .engine(Engine.builder()
                         .brand(dto.getEngineBrand())
