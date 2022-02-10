@@ -1,14 +1,14 @@
 package com.fdvalls.importadora.service;
 
 import com.fdvalls.importadora.dto.OwnerDTO;
-import com.fdvalls.importadora.model.Owner;
+import com.fdvalls.importadora.model.Customer;
 import com.fdvalls.importadora.repository.OwnerRepository;
 
-public class OwnerService {
+public class CustomerService {
 
     private final OwnerRepository ownerRepository;
 
-    public OwnerService(OwnerRepository ownerRepository){
+    public CustomerService(OwnerRepository ownerRepository){
         this.ownerRepository = ownerRepository;
     }
 
@@ -17,12 +17,12 @@ public class OwnerService {
          * Buscar un Owner en el repositorio (supuestamente una DB)
          * Convertir ese Owner al dto
          */
-        Owner owner = this.ownerRepository.findOwnerById(id);
+        Customer owner = this.ownerRepository.findOwnerById(id);
 
         return this.transformModelToDTO(owner);
     }
 
-    private OwnerDTO transformModelToDTO(Owner model) {
+    private OwnerDTO transformModelToDTO(Customer model) {
         return new OwnerDTO(model.getId(), model.getName(), model.getLastname(), model.getOld(), model.getIdentification());
     }
 
@@ -33,7 +33,7 @@ public class OwnerService {
         if(dto.getIdentification() == null){
             throw new IllegalArgumentException();
         }
-        this.ownerRepository.save (Owner.builder()
+        this.ownerRepository.save (Customer.builder()
                 .id(dto.getId())
                 .name(dto.getName())
                 .lastname(dto.getLastname())
