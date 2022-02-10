@@ -11,14 +11,13 @@ import static org.mockito.Mockito.when;
 import com.fdvalls.importadora.dto.CustomerDTO;
 import com.fdvalls.importadora.model.Customer;
 import com.fdvalls.importadora.repository.CustomerRepository;
-import com.fdvalls.importadora.model.Customer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class OwnerServiceTest {
+public class CustomerServiceTest {
     
     @Mock
     private CustomerRepository customerRepository;
