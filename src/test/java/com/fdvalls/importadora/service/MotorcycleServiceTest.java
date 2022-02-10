@@ -30,7 +30,7 @@ public class MotorcycleServiceTest {
         MockitoAnnotations.openMocks(this);
         when(motorcycleRepository.findMotorcycleByDomain(eq("A123ABC")))
                 .thenReturn(Motorcycle.builder()
-                .       id(1l)
+                        .id(1l)
                         .marca("Honda")
                         .engine(
                                 Engine.builder()
@@ -56,7 +56,7 @@ public class MotorcycleServiceTest {
 
     @Test
     void test_saveMotorcycle() {
-        MotorcycleDTO dto = new MotorcycleDTO(1L,"Zanella", "Keeway", "200cc", "A111CCC");
+        MotorcycleDTO dto = new MotorcycleDTO(1L, "Zanella", "Keeway", "200cc", "A111CCC");
         this.motorcycleService.saveMotorcycle(dto);
 
         verify(motorcycleRepository, times(1)).save(any());
@@ -67,17 +67,17 @@ public class MotorcycleServiceTest {
         // A123ABC ya existe
         // when(motorcycleRepository.findMotorcycleByDomain(eq("A111AAA"))).thenReturn(value)
         assertThrows(IllegalArgumentException.class, () -> {
-            MotorcycleDTO dto = new MotorcycleDTO(1L,"Zanella", "Keeway", "200cc", "A123ABC");
+            MotorcycleDTO dto = new MotorcycleDTO(1L, "Zanella", "Keeway", "200cc", "A123ABC");
             this.motorcycleService.saveMotorcycle(dto);
         });
     }
 
     @Test
     void test_saveMotorcycleException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            MotorcycleDTO dto = new MotorcycleDTO(2L, "Keeway", "Zanella", "200cc", "A111CCC");
-            this.motorcycleService.saveMotorcycle(dto);
-        });
+        MotorcycleDTO dto = new MotorcycleDTO(2L, "Zanella", "Keeway", "200cc", "A111CCC");
+        this.motorcycleService.saveMotorcycle(dto);
+
+        verify(motorcycleRepository, times(1)).save(any());
     }
 
 }

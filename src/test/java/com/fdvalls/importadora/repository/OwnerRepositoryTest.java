@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import com.fdvalls.importadora.model.Owner;
+import com.fdvalls.importadora.model.Customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +24,18 @@ import org.springframework.test.context.jdbc.Sql;
 public class OwnerRepositoryTest {
 
     @Autowired
-    private OwnerRepository ownerRepository;
+    private CustomerRepository ownerRepository;
 
     @Test
     void test_findAll_emptyDB() {
-        List<Owner> allOwners= this.ownerRepository.findAll();
+        List<Customer> allOwners= this.ownerRepository.findAll();
         assertTrue(allOwners.isEmpty());
     }
 
     @Test
     @Sql(scripts = "/dbscripts/insert_owner.sql")
     void test_findAll() {
-        List<Owner> allSomethings = this.ownerRepository.findAll();
+        List<Customer> allSomethings = this.ownerRepository.findAll();
         assertFalse(allSomethings.isEmpty());
     }
 
