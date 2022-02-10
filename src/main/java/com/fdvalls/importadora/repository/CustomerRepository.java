@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Customer findCustomerById(Long id);
-public interface OwnerRepository extends JpaRepository<Customer, Long> {
 
     Customer findOwnerById(Long id);
 
