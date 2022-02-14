@@ -1,5 +1,6 @@
 package com.fdvalls.importadora.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,29 +16,31 @@ import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest
 @TestPropertySource(properties = {
-        "spring.datasource.url=jdbc:h2:mem:testdb",
-        "spring.datasource.driverClassName=org.h2.Driver",
-        "spring.datasource.username=sa",
-        "spring.datasource.password=password",
-        "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
+                "spring.datasource.url=jdbc:h2:mem:testdb",
+                "spring.datasource.driverClassName=org.h2.Driver",
+                "spring.datasource.username=sa",
+                "spring.datasource.password=password",
+                "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
 })
 
 public class WheelRepositoryTest {
 
-    @Autowired
-    private WheelRepository wheereRepository;
+        @Autowired
+        private WheelRepository wheelRepository;
 
-    @Test
-    void test_findAll_emptyDB() {
-        List<Wheel> allWheels= this.wheereRepository.findAll();
-        assertTrue(allWheels.isEmpty());
-    }
+        @Test
+        void test_findAll_emptyDB() {
+                List<Wheel> allWheels = this.wheelRepository.findAll();
+                assertFalse(allWheels.isEmpty());
+        }
 
-    @Test
-    @Sql(scripts = "/dbscripts/insert_wheel.sql")
-    void test_findAll() {
-        List<Wheel> allWheels = this.wheereRepository.findAll();
-        assertFalse(allWheels.isEmpty());
-    }
+        @Test
+        @Sql(scripts = {"/dbscripts/insert_motorcycle.sql","/dbscripts/insert_wheel.sql"})
+        void test_findAll() {
+                List<Wheel> allWheels = this.wheelRepository.findAll();
+                assertFalse(allWheels.isEmpty());
+                assertEquals("Michelin Primacy 4 103Y",
+                allWheels.get(0).getMarca());
+        }
 
 }

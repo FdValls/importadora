@@ -38,7 +38,6 @@ public class WheelServiceTest {
     @Test
     void test_findOwnerByIdentification(){
         WheelDTO wheel = this.wheelService.findWheelById(1L);
-
         assertNotNull(wheel);
     }
 

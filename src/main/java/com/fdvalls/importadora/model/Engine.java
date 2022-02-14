@@ -1,5 +1,12 @@
 package com.fdvalls.importadora.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +16,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name = "engine")
 public class Engine {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "brand")
     private String brand;
-    private String nroSerie;
+    @Column(name = "serial_number")
+    private String serialNumber;
+    @Column(name = "horse_power")
     private String horsePower;
 
 }

@@ -28,16 +28,16 @@ public class MotorcycleServiceTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        when(motorcycleRepository.findMotorcycleByDomain(eq("A123ABC")))
+        when(motorcycleRepository.findByDomain(eq("A123ABC")))
                 .thenReturn(Motorcycle.builder()
                         .id(1l)
-                        .marca("Honda")
+                        .brand("Honda")
                         .engine(
                                 Engine.builder()
                                         .brand("Honda")
                                         .horsePower("600cc")
                                         .build())
-                        .patente("A123ABC")
+                        .domain("A123ABC")
                         .build());
 
         this.motorcycleService = new MotorcycleService(motorcycleRepository);

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MotorcycleRepository extends JpaRepository<Motorcycle, Long>{
 
-    Motorcycle findMotorcycleByDomain(String domain);
+    Motorcycle findByDomain(String domain);
 
 }

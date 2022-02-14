@@ -18,18 +18,18 @@ public class MotorcycleService {
          * Buscar una Motorcycle en el repositorio (supuestamente una DB)
          * Convertir esa motorcycle al dto
          */
-        Motorcycle motorcycle = this.motorcycleRepository.findMotorcycleByDomain(domain);
+        Motorcycle motorcycle = this.motorcycleRepository.findByDomain(domain);
 
         return this.transformModelToDTO(motorcycle);
     }
 
     private MotorcycleDTO transformModelToDTO(Motorcycle model) {
-        return new MotorcycleDTO(model.getId(), model.getMarca(), model.getEngine().getBrand(), model.getEngine().getHorsePower(),
-                model.getPatente());
+        return new MotorcycleDTO(model.getId(), model.getBrand(), model.getEngine().getBrand(), model.getEngine().getHorsePower(),
+                model.getDomain());
     }
 
     public void saveMotorcycle(MotorcycleDTO dto) {
-        if (this.motorcycleRepository.findMotorcycleByDomain(dto.getDomain()) != null) {
+        if (this.motorcycleRepository.findByDomain(dto.getDomain()) != null) {
             throw new IllegalArgumentException();
         }
         if (dto.getBrand() == null) {
@@ -37,7 +37,7 @@ public class MotorcycleService {
         }
         this.motorcycleRepository.save(Motorcycle.builder()
                 .id(dto.getId())
-                .marca(dto.getBrand())
+                .brand(dto.getBrand())
                 .engine(Engine.builder()
                         .brand(dto.getEngineBrand())
                         .horsePower(dto.getEnginePower())
