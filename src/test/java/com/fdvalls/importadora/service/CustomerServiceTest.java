@@ -39,11 +39,12 @@ public class CustomerServiceTest {
     } 
 
     @Test
-    void test_findOwnerByIdentification(){
-        CustomerDTO owner = this.customerService.findCustomerById(1L);
-
-        assertNotNull(owner);
-        assertEquals("35323873", owner.getIdentification());
+    void test_findCustomerByIdentification(){
+        CustomerDTO customer = this.customerService.findCustomerById(1L);
+        assertNotNull(customer);
+        assertEquals("35323873", customer.getIdentification());
+        assertEquals("Fernando", customer.getName());
+        //hacerlo con todos los atributos
     }
 
     @Test

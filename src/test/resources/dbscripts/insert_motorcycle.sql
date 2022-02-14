@@ -1,2 +1,4 @@
-insert into motorcycle (id,chasis,engine,ruedas,patente,marca,year,kms,estado,peso)
-values (1,'8C6K31970K0041844','yamaha','ACA, COMO METO UNA LISTA DE RUEDAS...');
+insert into motorcycle (id,chasis, domain, brand, year, kms, is_new, weigth)
+values(1,'1111','A097EOW','Yamaha','2019',14480,0,140);
+
+
