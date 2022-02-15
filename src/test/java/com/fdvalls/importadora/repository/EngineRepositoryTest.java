@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import com.fdvalls.importadora.model.Wheel;
+import com.fdvalls.importadora.model.Engine;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +23,24 @@ import org.springframework.test.context.jdbc.Sql;
                 "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
 })
 
-public class WheelRepositoryTest {
+public class EngineRepositoryTest {
 
-        @Autowired
-        private WheelRepository wheelRepository;
+    @Autowired
+    private EngineRepository engineRepository;
 
-        @Test
-        void test_findAll_emptyDB() {
-                List<Wheel> allWheels = this.wheelRepository.findAll();
-                assertTrue(allWheels.isEmpty());
-        }
+    @Test
+    void test_findAll_emptyDB() {
+            List<Engine> allEngines = this.engineRepository.findAll();
+            assertTrue(allEngines.isEmpty());
+    }
 
-        @Test
-        @Sql(scripts = {"/dbscripts/insert_motorcycle.sql","/dbscripts/insert_wheel.sql"})
-        void test_findAll() {
-                List<Wheel> allWheels = this.wheelRepository.findAll();
-                assertFalse(allWheels.isEmpty());
-                assertEquals("Michelin Primacy 4 103Y",
-                allWheels.get(0).getMarca());
-        }
-
+    @Test
+    @Sql(scripts = {"/dbscripts/insert_engine.sql"})
+    void test_findAll() {
+            List<Engine> allWheels = this.engineRepository.findAll();
+            assertFalse(allWheels.isEmpty());
+            assertEquals("BMW",
+            allWheels.get(0).getBrand());
+    }
+    
 }

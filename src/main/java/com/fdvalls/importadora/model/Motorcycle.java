@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -49,10 +50,16 @@ public class Motorcycle {
     private boolean isNew;
     @Column(name = "weigth")
     private int weigth;
+/*
     @ManyToMany
     @JoinTable(name = "motorcycle_customer",
     joinColumns = {@JoinColumn(name = "motorcycle_id", referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")})
     private List<Customer> customers;
-
+    */
+    /*
+    @ManyToOne
+    @JoinColumn(name = "dealer_id")
+    private Dealer dealer;
+    */
 }
