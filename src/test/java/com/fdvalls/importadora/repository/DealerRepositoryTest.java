@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import javax.transaction.Transactional;
+
+import com.fdvalls.importadora.model.Dealer;
 import java.util.List;
-
-import com.fdvalls.importadora.model.Wheel;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,23 +23,23 @@ import org.springframework.test.context.jdbc.Sql;
                 "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
 })
 
-public class WheelRepositoryTest {
+@Transactional
+public class DealerRepositoryTest {
+    
+    @Autowired
+    private DealerRepository  dealerRepository;
 
-        @Autowired
-        private WheelRepository wheelRepository;
+    @Test
+    void test_findAll_emptyDB() {
+        assertTrue(this.dealerRepository.findAll().isEmpty());
+    }
 
-        @Test
-        void test_findAll_emptyDB() {
-                List<Wheel> allWheels = this.wheelRepository.findAll();
-                assertTrue(allWheels.isEmpty());
-        }
-
-        @Test
-        @Sql(scripts = {"/dbscripts/insert_motorcycle.sql","/dbscripts/insert_wheel.sql"})
-        void test_findAll() {
-                List<Wheel> allWheels = this.wheelRepository.findAll();
-                assertFalse(allWheels.isEmpty());
-                assertEquals("Michelin Primacy 4 103Y", allWheels.get(0).getMarca());
-        }
-
+    @Test
+    @Sql(scripts = {"/dbscripts/insert_dealer.sql","/dbscripts/insert_network.sql","/dbscripts/insert_motorcycle.sql"})
+    void test_findAll() {
+            List<Dealer> dealers = this.dealerRepository.findAll();
+            assertFalse(dealers.isEmpty());
+            
+            assertEquals(1, dealers.get(0).getId());
+    }
 }

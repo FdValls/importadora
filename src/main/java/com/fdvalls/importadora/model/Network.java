@@ -1,6 +1,5 @@
 package com.fdvalls.importadora.model;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +14,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "network")
 public class Network {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "description")
     private String description;
+    @Column(name = "url")
     private String url;
+    @ManyToOne
+    @JoinColumn(name = "dealer_id")
     private Dealer dealer;
-    
+
 }

@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,19 +19,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-/*
 @Entity
 @Table(name = "dealer")
-*/
 public class Dealer {
 
-   private Long id;
-   private String razonSocial;
-   private String cuil;
-   private String direccion;
-   private String telefono;
-   private List<String> networks;
-   private List<Motorcycle> motorcycles;
-   private List<Customer> customers;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "razon_social")
+    private String razonSocial;
+    @Column(name = "cuil")
+    private String cuil;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "telephone")
+    private String telephone;
+    @OneToMany(mappedBy = "dealer")
+    private List<Network> networks;
+    @OneToMany(mappedBy = "dealer")
+    private List<Motorcycle> motorcycles;
+    //private List<Customer> customers;
 
 }
