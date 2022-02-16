@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
         "spring.datasource.password=password",
         "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
 })
+
 @Transactional
 public class CustomerRepositoryTest {
 

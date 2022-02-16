@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import com.fdvalls.importadora.model.Wheel;
+import javax.transaction.Transactional;
+
+import com.fdvalls.importadora.model.Network;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +25,26 @@ import org.springframework.test.context.jdbc.Sql;
                 "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
 })
 
-public class WheelRepositoryTest {
+@Transactional
+public class NetworkRepositoryTest {
+    
+    @Autowired
+    private NetworkRepository networkRepository;
 
-        @Autowired
-        private WheelRepository wheelRepository;
+    @Test
+    void test_findAll_emptyDB() {
+            List<Network> allNetworks = this.networkRepository.findAll();
+            assertTrue(allNetworks.isEmpty());
+    }
 
-        @Test
-        void test_findAll_emptyDB() {
-                List<Wheel> allWheels = this.wheelRepository.findAll();
-                assertTrue(allWheels.isEmpty());
-        }
+    @Test
+    @Sql(scripts = {"/dbscripts/insert_network.sql"})
+    void test_findAll() {
+            List<Network> allNetworks = this.networkRepository.findAll();
+            assertFalse(allNetworks.isEmpty());
+            assertEquals(1L,
+            allNetworks.get(0).getId());
+    }
 
-        @Test
-        @Sql(scripts = {"/dbscripts/insert_motorcycle.sql","/dbscripts/insert_wheel.sql"})
-        void test_findAll() {
-                List<Wheel> allWheels = this.wheelRepository.findAll();
-                assertFalse(allWheels.isEmpty());
-                assertEquals("Michelin Primacy 4 103Y", allWheels.get(0).getMarca());
-        }
 
 }
