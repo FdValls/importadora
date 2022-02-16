@@ -2,7 +2,6 @@ package com.fdvalls.importadora.service;
 
 import com.fdvalls.importadora.dto.WheelDTO;
 import com.fdvalls.importadora.model.Wheel;
-import com.fdvalls.importadora.repository.EngineRepository;
 import com.fdvalls.importadora.repository.WheelRepository;
 
 public class WheelService {
