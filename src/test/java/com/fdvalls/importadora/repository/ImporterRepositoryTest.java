@@ -1,20 +1,20 @@
 package com.fdvalls.importadora.repository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-
 import javax.transaction.Transactional;
-
-import com.fdvalls.importadora.model.Engine;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+
+import com.fdvalls.importadora.model.Importer;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 @SpringBootTest
 @TestPropertySource(properties = {
@@ -26,24 +26,23 @@ import org.springframework.test.context.jdbc.Sql;
 })
 
 @Transactional
-public class EngineRepositoryTest {
-
+public class ImporterRepositoryTest {
+    
     @Autowired
-    private EngineRepository engineRepository;
+    private ImporterRepository importerRepository;
 
     @Test
     void test_findAll_emptyDB() {
-            List<Engine> allEngines = this.engineRepository.findAll();
-            assertTrue(allEngines.isEmpty());
+            List<Importer> allImports = this.importerRepository.findAll();
+            assertTrue(allImports.isEmpty());
     }
 
     @Test
-    @Sql(scripts = {"/dbscripts/insert_engine.sql"})
+    @Sql(scripts = {"/dbscripts/insert_importer.sql"})
     void test_findAll() {
-            List<Engine> allWheels = this.engineRepository.findAll();
-            assertFalse(allWheels.isEmpty());
-            assertEquals("BMW",
-            allWheels.get(0).getBrand());
+            List<Importer> allImporters = this.importerRepository.findAll();
+            assertFalse(allImporters.isEmpty());
+            assertEquals("WallStreer123",
+            allImporters.get(0).getAddress());
     }
-    
 }

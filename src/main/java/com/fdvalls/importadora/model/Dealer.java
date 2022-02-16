@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,6 +41,10 @@ public class Dealer {
     private List<Network> networks;
     @OneToMany(mappedBy = "dealer")
     private List<Motorcycle> motorcycles;
-    //private List<Customer> customers;
+    @ManyToMany
+    @JoinTable(name = "motorcycle_customer",
+    joinColumns = {@JoinColumn(name = "motorcycle_id", referencedColumnName = "id")},
+    inverseJoinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")})
+    private List<Customer> customers;
 
 }

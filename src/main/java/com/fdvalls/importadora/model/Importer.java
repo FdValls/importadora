@@ -2,6 +2,16 @@ package com.fdvalls.importadora.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +22,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name = "importer")
 public class Importer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "razon_social")
     private String razonSocial;
+    @Column(name = "cuil")
     private String cuil;
-    private String direccion;
-    private String telefono;
-    private List<String> redes;
-    private List<Motorcycle> motos;
-    //private List<Dealer> clientes;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "telephone")
+    private String telephone;
+    @Column(name = "country")
+    private String country;
+    @OneToMany(mappedBy = "importer")
+    private List<Network> networks;
+    @OneToMany(mappedBy = "importer")
+    private List<Motorcycle> motorcycles;
+    @ManyToMany
+    @JoinTable(name = "importer_dealer",
+    joinColumns = {@JoinColumn(name = "importer_id", referencedColumnName = "id")},
+    inverseJoinColumns = {@JoinColumn(name = "dealer_id", referencedColumnName = "id")})
+    private List<Dealer> dealers;
 
 }

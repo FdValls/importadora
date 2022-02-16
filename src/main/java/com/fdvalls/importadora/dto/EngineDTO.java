@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Engine {
+public class EngineDTO {
 
     private Long id;
     private String brand;
