@@ -58,5 +58,8 @@ public class Motorcycle {
     @ManyToOne
     @JoinColumn(name = "dealer_id")
     private Dealer dealer;
+    @ManyToOne
+    @JoinColumn(name = "importer_id")
+    private Importer importer;
    
 }
