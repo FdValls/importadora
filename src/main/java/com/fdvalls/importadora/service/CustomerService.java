@@ -14,12 +14,12 @@ public class CustomerService {
 
     public CustomerDTO findCustomerById (Long id){
          /**
-         * Buscar un Owner en el repositorio (supuestamente una DB)
-         * Convertir ese Owner al dto
+         * Buscar un Customer en el repositorio (supuestamente una DB)
+         * Convertir ese Customer al dto
          */
-        Customer owner = this.customerRepository.findCustomerById(id);
+        Customer customer = this.customerRepository.findCustomerById(id);
 
-        return this.transformModelToDTO(owner);
+        return this.transformModelToDTO(customer);
     }
 
     private CustomerDTO transformModelToDTO(Customer model) {
