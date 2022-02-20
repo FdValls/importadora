@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.fdvalls.importadora.model.Network;
+import com.fdvalls.importadora.model.SocialNetwork;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +26,21 @@ import org.springframework.test.context.jdbc.Sql;
 })
 
 @Transactional
-public class NetworkRepositoryTest {
+public class SocialNetworkRepositoryTest {
     
     @Autowired
     private NetworkRepository networkRepository;
 
     @Test
     void test_findAll_emptyDB() {
-            List<Network> allNetworks = this.networkRepository.findAll();
+            List<SocialNetwork> allNetworks = this.networkRepository.findAll();
             assertTrue(allNetworks.isEmpty());
     }
 
     @Test
-    @Sql(scripts = {"/dbscripts/insert_network.sql"})
+    @Sql(scripts = {"/dbscripts/insert_social_network.sql"})
     void test_findAll() {
-            List<Network> allNetworks = this.networkRepository.findAll();
+            List<SocialNetwork> allNetworks = this.networkRepository.findAll();
             assertFalse(allNetworks.isEmpty());
             assertEquals(1L,
             allNetworks.get(0).getId());

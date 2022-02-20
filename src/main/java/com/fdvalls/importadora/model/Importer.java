@@ -40,7 +40,7 @@ public class Importer {
     @Column(name = "country")
     private String country;
     @OneToMany(mappedBy = "importer")
-    private List<Network> networks;
+    private List<SocialNetwork> networks;
     @OneToMany(mappedBy = "importer")
     private List<Motorcycle> motorcycles;
     @ManyToMany

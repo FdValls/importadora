@@ -19,10 +19,14 @@ public class DealerService {
     }
 
     private DealerDTO transformModelToDTO(Dealer d) {
-        return new DealerDTO(d.getId(), d.getAddress(),
-                             d.getCuil(), d.getRazonSocial(),
-                             d.getTelephone(),d.getNetworks(),
-                             d.getMotorcycles(), d.getCustomers()
+        return new DealerDTO(d.getId(),
+                             d.getRazonSocial(),
+                             d.getCuil(),
+                             d.getAddress(),
+                             d.getTelephone(),
+                             d.getNetworks(),
+                             d.getMotorcycles(), 
+                             d.getCustomers()
 
         );
     }
@@ -33,9 +37,9 @@ public class DealerService {
         }
         this.dealerRepository.save(Dealer.builder()
                 .id(dto.getId())
-                .address(dto.getAddress())
-                .cuil(dto.getCuil())
                 .razonSocial(dto.getRazonSocial())
+                .cuil(dto.getCuil())
+                .address(dto.getAddress())
                 .telephone(dto.getTelephone())
                 .networks(dto.getNetworks())
                 .motorcycles(dto.getMotorcycles())

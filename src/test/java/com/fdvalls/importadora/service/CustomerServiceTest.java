@@ -44,7 +44,10 @@ public class CustomerServiceTest {
         assertNotNull(customer);
         assertEquals("35323873", customer.getIdentification());
         assertEquals("Fernando", customer.getName());
-        //hacerlo con todos los atributos
+        assertEquals("Valls", customer.getLastName());
+        assertEquals(31, customer.getOld());
+        assertEquals("35323873", customer.getIdentification());
+        //hacerlo con todos los atributos ----->ok
     }
 
     @Test

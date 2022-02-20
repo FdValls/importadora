@@ -2,16 +2,16 @@ package com.fdvalls.importadora.repository;
 
 import java.util.List;
 
-import com.fdvalls.importadora.model.Network;
+import com.fdvalls.importadora.model.SocialNetwork;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NetworkRepository extends JpaRepository<Network, Long>{
+public interface NetworkRepository extends JpaRepository<SocialNetwork, Long>{
     
-    Network findNetworkById (Long id);
+    SocialNetwork findNetworkById (Long id);
 
-    List<Network> findAll();
+    List<SocialNetwork> findAll();
 
 }

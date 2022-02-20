@@ -36,7 +36,7 @@ public class CustomerService {
         this.customerRepository.save (Customer.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .lastname(dto.getLastname())
+                .lastname(dto.getLastName())
                 .old(dto.getOld())
                 .identification(dto.getIdentification())
                 .build());

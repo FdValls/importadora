@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "network")
-public class Network {
+public class SocialNetwork {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

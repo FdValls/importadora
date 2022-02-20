@@ -71,13 +71,4 @@ public class MotorcycleServiceTest {
             this.motorcycleService.saveMotorcycle(dto);
         });
     }
-
-    @Test
-    void test_saveMotorcycleException() {
-        MotorcycleDTO dto = new MotorcycleDTO(2L, "Zanella", "Keeway", "200cc", "A111CCC");
-        this.motorcycleService.saveMotorcycle(dto);
-
-        verify(motorcycleRepository, times(1)).save(any());
-    }
-
 }

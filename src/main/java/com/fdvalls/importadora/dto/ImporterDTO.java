@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fdvalls.importadora.model.Dealer;
 import com.fdvalls.importadora.model.Motorcycle;
-import com.fdvalls.importadora.model.Network;
+import com.fdvalls.importadora.model.SocialNetwork;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class ImporterDTO {
     private String address;
     private String telephone;
     private String country;
-    private List<Network> networks;
+    private List<SocialNetwork> networks;
     private List<Motorcycle> motorcycles;
     private List<Dealer> dealers;
 }

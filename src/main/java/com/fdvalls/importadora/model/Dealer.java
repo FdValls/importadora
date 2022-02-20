@@ -38,7 +38,7 @@ public class Dealer {
     @Column(name = "telephone")
     private String telephone;
     @OneToMany(mappedBy = "dealer")
-    private List<Network> networks;
+    private List<SocialNetwork> networks;
     @OneToMany(mappedBy = "dealer")
     private List<Motorcycle> motorcycles;
     @ManyToMany
