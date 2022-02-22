@@ -4,6 +4,9 @@ import com.fdvalls.importadora.dto.CustomerDTO;
 import com.fdvalls.importadora.model.Customer;
 import com.fdvalls.importadora.repository.CustomerRepository;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
