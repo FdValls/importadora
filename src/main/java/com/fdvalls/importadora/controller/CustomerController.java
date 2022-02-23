@@ -6,6 +6,8 @@ import com.fdvalls.importadora.dto.CustomerDTO;
 import com.fdvalls.importadora.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +25,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public void createCustomer(HttpServletRequest request, @RequestBody CustomerDTO customerDTO) {
-        this.customerService.saveCustomer(customerDTO);
-        
+    public ResponseEntity<String> createCustomer(HttpServletRequest request, @RequestBody CustomerDTO customerDTO) {
+        if(this.customerService.saveCustomer(customerDTO) != null){
+            return new ResponseEntity<>("Resultado OK", HttpStatus.OK);
+        }
+       
+        return new ResponseEntity<>("Resultado NOK", HttpStatus.NOT_FOUND);
 
 
     }

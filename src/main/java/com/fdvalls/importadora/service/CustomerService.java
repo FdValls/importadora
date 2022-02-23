@@ -29,21 +29,20 @@ public class CustomerService {
         return new CustomerDTO(model.getId(), model.getName(), model.getLastname(), model.getOld(), model.getIdentification());
     }
 
-    public void saveCustomer(CustomerDTO dto){
-        if(this.customerRepository.findCustomerById(dto.getId()) != null){
-            throw new IllegalArgumentException();
+    public String saveCustomer(CustomerDTO dto){
+        if(this.findCustomerById(dto.getId()) != null){
+            this.customerRepository.save (Customer.builder()
+            .id(dto.getId())
+            .name(dto.getName())
+            .lastname(dto.getLastName())
+            .old(dto.getOld())
+            .identification(dto.getIdentification())
+            .build());
+            
+            return "ok";
         }
-        if(dto.getIdentification() == null){
-            throw new IllegalArgumentException();
-        }
-        this.customerRepository.save (Customer.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .lastname(dto.getLastName())
-                .old(dto.getOld())
-                .identification(dto.getIdentification())
-                .build());
         
+        return "NOK";
     }
     
 }
