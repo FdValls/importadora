@@ -17,24 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customer")
 public class CustomerController {
 
+    private final CustomerService customerService;
+    
     @Autowired
-    private CustomerService customerService;
-
-    public CustomerController(CustomerService customerService){
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @PostMapping
     public ResponseEntity<String> createCustomer(HttpServletRequest request, @RequestBody CustomerDTO customerDTO) {
-        if(this.customerService.saveCustomer(customerDTO) != null){
+        if(this.customerService.saveCustomer(customerDTO)){
             return new ResponseEntity<>("Resultado OK", HttpStatus.OK);
-        }
-       
-        return new ResponseEntity<>("Resultado NOK", HttpStatus.NOT_FOUND);
-
-
+        };
+        return new ResponseEntity<>("Resultado NOK", HttpStatus.NOT_ACCEPTABLE);
     }
 
-
-    
 }
