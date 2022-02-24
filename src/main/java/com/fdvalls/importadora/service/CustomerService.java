@@ -31,22 +31,19 @@ public class CustomerService {
         return new CustomerDTO(model.getId(), model.getName(), model.getLastname(), model.getOld(), model.getIdentification());
     }
 
-    public boolean saveCustomer(CustomerDTO dto){
-        boolean resultado = true;
-        //valido datos de entrada
-        if(this.findCustomerById(dto.getId()) != null){
-            //throw new IllegalArgumentException("id cannot be null");
-            resultado = false;
-        }else{
-            this.customerRepository.save(Customer.builder()
-            .id(dto.getId())
-            .name(dto.getName())
-            .lastname(dto.getLastname())
-            .old(dto.getOld())
-            .identification(dto.getIdentification())
-            .build());
+    public CustomerDTO saveCustomer(CustomerDTO dto) throws Exception{
+        if(this.customerRepository.findByIdentification(dto.getIdentification()) != null){
+            throw new Exception("Identification already exists: "+dto.getIdentification());
         }
-        return resultado;
+        Customer resultado = this.customerRepository.save(Customer.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .lastname(dto.getLastname())
+                .old(dto.getOld())
+                .identification(dto.getIdentification())
+                .build());
+        
+        return this.transformModelToDTO(resultado);
     }
     
 }

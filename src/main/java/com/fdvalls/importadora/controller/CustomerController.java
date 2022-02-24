@@ -6,7 +6,6 @@ import com.fdvalls.importadora.dto.CustomerDTO;
 import com.fdvalls.importadora.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +24,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCustomer(HttpServletRequest request, @RequestBody CustomerDTO customerDTO) {
-        if(this.customerService.saveCustomer(customerDTO)){
-            return new ResponseEntity<>("Resultado OK", HttpStatus.OK);
-        };
-        return new ResponseEntity<>("Resultado NOK", HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity<?> createCustomer(HttpServletRequest request, @RequestBody CustomerDTO customerDTO) {
+        try {
+            return ResponseEntity.ok().body(this.customerService.saveCustomer(customerDTO));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     List<Customer> findAll();
 
+    Customer findByIdentification(String identification);
+
 }

@@ -2,6 +2,7 @@ package com.fdvalls.importadora.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -43,5 +44,13 @@ public class CustomerRepositoryTest {
             Customer customer = customers.get(0);
             assertEquals("Fernando", customer.getName());
     }
+
+    @Test
+    @Sql(scripts = "/dbscripts/insert_customer.sql")
+    void test_findByIdentification() {
+            Customer customer = this.customerRepository.findByIdentification("35323873");
+            assertNotNull(customer);;
+    }
+
 
 }
