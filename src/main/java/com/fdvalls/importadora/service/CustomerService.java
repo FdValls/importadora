@@ -6,6 +6,10 @@ import com.fdvalls.importadora.repository.CustomerRepository;
 
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.core.joran.action.NewRuleAction;
+
+import java.util.List;
+
 @Service
 public class CustomerService {
 
@@ -28,7 +32,7 @@ public class CustomerService {
     }
 
     private CustomerDTO transformModelToDTO(Customer model) {
-        return new CustomerDTO(model.getId(), model.getName(), model.getLastname(), model.getOld(), model.getIdentification());
+        return new CustomerDTO(model.getId(), model.getName(), model.getLastname(), model.getAge(), model.getIdentification());
     }
 
     public CustomerDTO saveCustomer(CustomerDTO dto) throws Exception{
@@ -39,11 +43,34 @@ public class CustomerService {
                 .id(dto.getId())
                 .name(dto.getName())
                 .lastname(dto.getLastname())
-                .old(dto.getOld())
+                .age(dto.getAge())
                 .identification(dto.getIdentification())
                 .build());
         
         return this.transformModelToDTO(resultado);
     }
-    
+
+    public List<Customer> findAllCustomers () throws Exception{
+        if(this.customerRepository.findAll() == null){
+            throw new Exception("List null");
+        }
+        List<Customer> customers = this.customerRepository.findAll();
+        return customers;
+    }
+
+    public void update(Long id, String newName) {
+		if (id == null) {
+			throw new IllegalArgumentException("id cannot be null");
+		}
+		Customer customerUpdate = this.customerRepository.findCustomerById(id);
+		
+		this.customerRepository.update(Customer.builder()
+				.id(id)
+				.name(newName)
+                .lastname(customerUpdate.getLastname())
+                .identification(customerUpdate.getIdentification())
+				.age(customerUpdate.getAge())
+				.build());
+	}
+
 }

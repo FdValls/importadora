@@ -14,6 +14,6 @@ public class CustomerDTO {
     private Long id;
     private String name;
     private String lastname;
-    private Integer old;
+    private Integer age;
     private String identification; //dni
 }

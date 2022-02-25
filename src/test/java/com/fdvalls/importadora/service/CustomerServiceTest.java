@@ -32,7 +32,7 @@ public class CustomerServiceTest {
                         .id(1L)
                         .name("Fernando")
                         .lastname("Valls")
-                        .old(31)
+                        .age(31)
                         .identification("35323873")
                         .build());
 
@@ -47,7 +47,7 @@ public class CustomerServiceTest {
         assertEquals("35323873", customer.getIdentification());
         assertEquals("Fernando", customer.getName());
         assertEquals("Valls", customer.getLastname());
-        assertEquals(31, customer.getOld());
+        assertEquals(31, customer.getAge());
         assertEquals("35323873", customer.getIdentification());
         // hacerlo con todos los atributos ----->ok
     }
@@ -67,7 +67,7 @@ public class CustomerServiceTest {
                 .id(1L)
                 .name("Alejandro")
                 .lastname("Valls")
-                .old(31)
+                .age(31)
                 .identification("30307509")
                 .build());
 

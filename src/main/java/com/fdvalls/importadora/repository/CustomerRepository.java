@@ -16,4 +16,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Customer findByIdentification(String identification);
 
+    Object update(Customer build);
+
 }

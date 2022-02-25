@@ -27,8 +27,8 @@ public class Customer {
     private String name;
     @Column(name = "lastname")
     private String lastname;
-    @Column(name = "old")
-    private Integer old;
+    @Column(name = "age")
+    private Integer age;
     @Column(name = "identification")
     private String identification; //dni
 

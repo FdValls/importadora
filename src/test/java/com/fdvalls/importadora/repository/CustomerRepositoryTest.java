@@ -52,5 +52,11 @@ public class CustomerRepositoryTest {
             assertNotNull(customer);;
     }
 
+    @Test
+    @Sql(scripts = "/dbscripts/insert_customer.sql")
+    void test_findAllCustomers() {
+            List<Customer> customers = this.customerRepository.findAll();
+            assertNotNull(customers);;
+    }
 
 }
