@@ -52,15 +52,15 @@ public class ImporterServiceTest {
         assertEquals("31-254698965-7", importer.getCuil());
         assertEquals("Av.Long 4688", importer.getAddress());
         assertEquals("1164978897", importer.getTelephone());
-        assertNull(importer.getNetworks());
-        assertNull(importer.getMotorcycles());
-        assertNull(importer.getDealers());
+        // assertNull(importer.getNetworks());
+        // assertNull(importer.getMotorcycles());
+        // assertNull(importer.getDealers());
     }
 
     @Test
     void test_saveImporter() {
-        ImporterDTO dto = new ImporterDTO(2l, "Spring-Motors", "31-254698965-7", "Av.Long 4688","1164978897", "Canada", null, null, null);
-        this.importerService.saveNetwork(dto);
+        ImporterDTO dto = new ImporterDTO(2l, "Spring-Motors", "31-254698965-7", "Av.Long 4688","1164978897", "Canada");
+        this.importerService.saveImporter(dto);
 
         verify(importerRepository, times(1)).save(any());
     }

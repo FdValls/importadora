@@ -1,76 +1,112 @@
 package com.fdvalls.importadora.service;
 
-import com.fdvalls.importadora.dto.CustomerDTO;
-import com.fdvalls.importadora.model.Customer;
-import com.fdvalls.importadora.repository.CustomerRepository;
+import java.util.List;
+import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import com.fdvalls.importadora.dto.CustomerDTO;
+import com.fdvalls.importadora.exception.AlreadyExists;
+import com.fdvalls.importadora.exception.DealerNotFoundException;
+import com.fdvalls.importadora.model.Customer;
+import com.fdvalls.importadora.model.Dealer;
+import com.fdvalls.importadora.repository.CustomerRepository;
+import com.fdvalls.importadora.repository.DealerRepository;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import ch.qos.logback.core.joran.action.NewRuleAction;
-
-import java.util.List;
-
 @Service
+@Component
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final DealerRepository dealerRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, DealerRepository dealerRepository) {
         this.customerRepository = customerRepository;
+        this.dealerRepository = dealerRepository;
     }
 
-    public CustomerDTO findCustomerById (Long id) {
-         /**
+    public CustomerDTO findCustomerById(Long id) {
+        /**
          * Buscar un Customer en el repositorio (supuestamente una DB)
          * Convertir ese Customer al dto
          */
         Customer customer = this.customerRepository.findCustomerById(id);
-        if(customer != null){
+        if (customer != null) {
             return this.transformModelToDTO(customer);
         }
         return null;
     }
 
     private CustomerDTO transformModelToDTO(Customer model) {
-        return new CustomerDTO(model.getId(), model.getName(), model.getLastname(), model.getAge(), model.getIdentification());
+        return CustomerDTO.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .lastname(model.getLastname())
+                .age(model.getAge())
+                .identification(model.getIdentification())
+                .build();
     }
 
-    public CustomerDTO saveCustomer(CustomerDTO dto) throws Exception{
-        if(this.customerRepository.findByIdentification(dto.getIdentification()) != null){
-            throw new Exception("Identification already exists: "+dto.getIdentification());
+    @Transactional
+    public CustomerDTO saveCustomer(CustomerDTO dto) throws Exception {
+        if (this.customerRepository.findByIdentification(dto.getIdentification()) != null) {
+            throw new AlreadyExists("Identification already exists: " + dto.getIdentification());
         }
-        Customer resultado = this.customerRepository.save(Customer.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .lastname(dto.getLastname())
-                .age(dto.getAge())
-                .identification(dto.getIdentification())
-                .build());
+
+        Optional<Dealer> dealerOptional = this.dealerRepository.findById(dto.getDealerId());
+        Dealer dealer = dealerOptional.orElseThrow(() -> new DealerNotFoundException("Dealer with id " + dto.getDealerId() + " does not exists"));
         
-        return this.transformModelToDTO(resultado);
+        Customer customer = Customer.builder()
+            .id(dto.getId())
+            .name(dto.getName())
+            .lastname(dto.getLastname())
+            .age(dto.getAge())
+            .identification(dto.getIdentification())
+            .build();
+        
+        customer = this.customerRepository.save(customer);
+        dealer.getCustomers().add(customer);
+        this.dealerRepository.save(dealer);
+
+        return this.transformModelToDTO(customer);
     }
 
-    public List<Customer> findAllCustomers () throws Exception{
-        if(this.customerRepository.findAll() == null){
+    public List<Customer> findAllCustomers() throws Exception {
+        if (this.customerRepository.findAll().isEmpty()) {
             throw new Exception("List null");
         }
-        List<Customer> customers = this.customerRepository.findAll();
-        return customers;
+        return this.customerRepository.findAll();
     }
 
-    public void update(Long id, String newName) {
-		if (id == null) {
-			throw new IllegalArgumentException("id cannot be null");
-		}
-		Customer customerUpdate = this.customerRepository.findCustomerById(id);
-		
-		this.customerRepository.update(Customer.builder()
-				.id(id)
-				.name(newName)
-                .lastname(customerUpdate.getLastname())
-                .identification(customerUpdate.getIdentification())
-				.age(customerUpdate.getAge())
-				.build());
-	}
+    public Customer update(Long id, CustomerDTO dto) {
+        Customer customerUpdate = this.customerRepository.findCustomerById(id);
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        } else if (customerUpdate == null) {
+            throw new IllegalArgumentException("customer not exist");
+        } else {
+            return this.customerRepository.save(Customer.builder()
+                    .id(customerUpdate.getId())
+                    .name(dto.getName())
+                    .lastname(dto.getLastname())
+                    .identification(dto.getIdentification())
+                    .age(dto.getAge())
+                    .build());
+        }
+
+    }
+
+    public CustomerDTO delete(Long id) throws Exception {
+        Customer customerDetele = this.customerRepository.findCustomerById(id);
+        if (customerDetele == null) {
+            throw new Exception("id not exist");
+        }
+        this.customerRepository.delete(customerDetele);
+        return this.transformModelToDTO(customerDetele);
+
+    }
 
 }

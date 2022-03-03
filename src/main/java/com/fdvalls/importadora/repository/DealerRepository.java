@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface DealerRepository extends JpaRepository<Dealer, Long>{
 
     Dealer findDealerById(Long id);
+
+    Dealer findDealerByCuil (String cuil);
     
 }

@@ -16,4 +16,5 @@ public class CustomerDTO {
     private String lastname;
     private Integer age;
     private String identification; //dni
+    private Long dealerId;
 }

@@ -4,6 +4,9 @@ import com.fdvalls.importadora.dto.ImporterDTO;
 import com.fdvalls.importadora.model.Importer;
 import com.fdvalls.importadora.repository.ImporterRepository;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ImporterService {
 
     private ImporterRepository importerRepository;
@@ -21,24 +24,24 @@ public class ImporterService {
     private ImporterDTO transformModelToDTO(Importer i) {
         return new ImporterDTO(i.getId(), i.getRazonSocial(),
                               i.getCuil(), i.getAddress(), i.getTelephone(),
-                              i.getCountry(), i.getNetworks(), i.getMotorcycles(), i.getDealers());
+                              i.getCountry());
     }
 
-    public void saveNetwork(ImporterDTO dto) {
+    public ImporterDTO saveImporter(ImporterDTO dto) {
         if (this.importerRepository.findImporterById(dto.getId()) != null) {
             throw new IllegalArgumentException();
         }
-        this.importerRepository.save(Importer.builder()
+        return this.transformModelToDTO(this.importerRepository.save(Importer.builder()
                 .id(dto.getId())
                 .razonSocial(dto.getRazonSocial())
                 .cuil(dto.getCuil())
                 .address(dto.getAddress())
                 .telephone(dto.getTelephone())
                 .country(dto.getCountry())
-                .networks(dto.getNetworks())
-                .motorcycles(dto.getMotorcycles())
-                .dealers(dto.getDealers())
-                .build());
+                // .networks(dto.getNetworks())
+                // .motorcycles(dto.getMotorcycles())
+                // .dealers(dto.getDealers())
+                .build()));
     }
     
 }

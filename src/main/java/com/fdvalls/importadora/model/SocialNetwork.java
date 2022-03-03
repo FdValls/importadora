@@ -29,12 +29,9 @@ public class SocialNetwork {
     private String description;
     @Column(name = "url")
     private String url;
-    @ManyToOne
-    @JoinColumn(name = "dealer_id")
-    private Dealer dealer;
-    @ManyToOne
-    @JoinColumn(name = "importer_id")
-    private Importer importer;
+    // @ManyToOne
+    // @JoinColumn(name = "importer_id")
+    // private Importer importer;
 
 
 }

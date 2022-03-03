@@ -13,5 +13,9 @@ public interface EngineRepository extends JpaRepository<Engine, Long> {
     Engine findEngineById(Long id);
 
     List<Engine> findAll();
+
+    Engine findEngineBySerialNumber(String serialNumber);
+
+    //Engine delete (Long id);
     
 }

@@ -1,10 +1,13 @@
 package com.fdvalls.importadora.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +24,7 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "name")
@@ -31,6 +35,6 @@ public class Customer {
     private Integer age;
     @Column(name = "identification")
     private String identification; //dni
-
-    
+    @ManyToMany(mappedBy = "customers")
+    private List<Dealer> dealers;
 }

@@ -29,7 +29,7 @@ import org.springframework.test.context.jdbc.Sql;
 public class SocialNetworkRepositoryTest {
     
     @Autowired
-    private NetworkRepository networkRepository;
+    private SocialNetworkRepository networkRepository;
 
     @Test
     void test_findAll_emptyDB() {

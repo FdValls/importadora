@@ -50,7 +50,7 @@ public class EngineServiceTest {
     }
 
     @Test
-    void test_saveDealer() {
+    void test_saveDealer() throws Exception {
         EngineDTO dto = new EngineDTO(2l, "Benelli", "1334256TYU87W", "400cc");
         this.engineService.saveEngine(dto);
 

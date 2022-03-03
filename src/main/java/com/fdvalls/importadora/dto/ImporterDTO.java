@@ -23,7 +23,7 @@ public class ImporterDTO {
     private String address;
     private String telephone;
     private String country;
-    private List<SocialNetwork> networks;
-    private List<Motorcycle> motorcycles;
-    private List<Dealer> dealers;
+    // private List<SocialNetwork> networks;
+    // private List<Motorcycle> motorcycles;
+    // private List<Dealer> dealers;
 }

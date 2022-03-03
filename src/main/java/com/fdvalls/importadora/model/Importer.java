@@ -39,7 +39,11 @@ public class Importer {
     private String telephone;
     @Column(name = "country")
     private String country;
-    @OneToMany(mappedBy = "importer")
+    //@OneToMany(mappedBy = "importer")
+    @ManyToMany
+    @JoinTable(name = "importer_network",
+    joinColumns = {@JoinColumn(name = "importer_id", referencedColumnName = "id")},
+    inverseJoinColumns = {@JoinColumn(name = "network_id", referencedColumnName = "id")})
     private List<SocialNetwork> networks;
     @OneToMany(mappedBy = "importer")
     private List<Motorcycle> motorcycles;
