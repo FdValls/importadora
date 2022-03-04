@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/dealer")
 public class DealerController {
-    
+
     private final DealerService dealerService;
 
-    public DealerController(DealerService dealerService){
+    public DealerController(DealerService dealerService) {
         this.dealerService = dealerService;
     }
 
@@ -38,17 +38,12 @@ public class DealerController {
 
     @GetMapping
     public ResponseEntity<?> getAllDealers() throws Exception {
-        try {
-            return ResponseEntity.ok().body(this.dealerService.findAllDealers());
-        } catch (Exception e) {
-            throw new NotFoundException(e.getMessage());
-        }
+        return ResponseEntity.ok().body(this.dealerService.findAllDealers());
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(HttpServletRequest request,
-            @PathVariable("id") Long id) throws Exception{
+            @PathVariable("id") Long id) throws Exception {
         try {
             return ResponseEntity.ok().body(this.dealerService.delete(id));
         } catch (Exception e) {

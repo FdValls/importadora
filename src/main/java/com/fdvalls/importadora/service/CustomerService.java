@@ -13,11 +13,9 @@ import com.fdvalls.importadora.model.Dealer;
 import com.fdvalls.importadora.repository.CustomerRepository;
 import com.fdvalls.importadora.repository.DealerRepository;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-@Component
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -57,16 +55,17 @@ public class CustomerService {
         }
 
         Optional<Dealer> dealerOptional = this.dealerRepository.findById(dto.getDealerId());
-        Dealer dealer = dealerOptional.orElseThrow(() -> new DealerNotFoundException("Dealer with id " + dto.getDealerId() + " does not exists"));
-        
+        Dealer dealer = dealerOptional.orElseThrow(
+                () -> new DealerNotFoundException("Dealer with id " + dto.getDealerId() + " does not exists"));
+
         Customer customer = Customer.builder()
-            .id(dto.getId())
-            .name(dto.getName())
-            .lastname(dto.getLastname())
-            .age(dto.getAge())
-            .identification(dto.getIdentification())
-            .build();
-        
+                .id(dto.getId())
+                .name(dto.getName())
+                .lastname(dto.getLastname())
+                .age(dto.getAge())
+                .identification(dto.getIdentification())
+                .build();
+
         customer = this.customerRepository.save(customer);
         dealer.getCustomers().add(customer);
         this.dealerRepository.save(dealer);
@@ -80,6 +79,7 @@ public class CustomerService {
         }
         return this.customerRepository.findAll();
     }
+    
 
     public Customer update(Long id, CustomerDTO dto) {
         Customer customerUpdate = this.customerRepository.findCustomerById(id);

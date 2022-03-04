@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,12 +38,8 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllCustomers() throws Exception {
-        try {
-            return ResponseEntity.ok().body(this.customerService.findAllCustomers());
-        } catch (Exception e) {
-            throw new NotFoundException(e.getMessage());
-        }
+    public ResponseEntity<?> getAllCustomers(HttpServletRequest request) throws Exception {
+        return ResponseEntity.ok().body(this.customerService.findAllCustomers());
     }
 
     @PutMapping("/{id}")
@@ -60,7 +55,7 @@ public class CustomerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(HttpServletRequest request,
-            @PathVariable("id") Long id) throws Exception{
+            @PathVariable("id") Long id) throws Exception {
         try {
             return ResponseEntity.ok().body(this.customerService.delete(id));
         } catch (Exception e) {

@@ -6,7 +6,6 @@ import com.fdvalls.importadora.repository.SocialNetworkRepository;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,4 +41,12 @@ public class SocialNetworkService {
             .url(network.getUrl())
             .build()));
     }
+
+    public List<SocialNetwork> findAllNetwork() throws Exception {
+        if (this.socialNetworkRepository.findAll().isEmpty()) {
+            throw new IllegalArgumentException("List null");
+        }
+        return this.socialNetworkRepository.findAll();
+    }
+
 }

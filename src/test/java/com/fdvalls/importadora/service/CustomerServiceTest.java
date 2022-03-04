@@ -4,14 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 import com.fdvalls.importadora.dto.CustomerDTO;
 import com.fdvalls.importadora.model.Customer;
+import com.fdvalls.importadora.model.Dealer;
 import com.fdvalls.importadora.repository.CustomerRepository;
+import com.fdvalls.importadora.repository.DealerRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +28,10 @@ public class CustomerServiceTest {
 
     @Mock
     private CustomerRepository customerRepository;
+
+    @Mock
+    private DealerRepository dealerRepository;
+
     private CustomerService customerService;
 
     @BeforeEach
@@ -37,7 +47,10 @@ public class CustomerServiceTest {
                         .build());
 
         when(customerRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
-        this.customerService = new CustomerService(customerRepository);
+        when(dealerRepository.findById(anyLong())).thenReturn(Optional.of(Dealer.builder()
+            .customers(new ArrayList<>())
+            .build()));
+        this.customerService = new CustomerService(customerRepository, dealerRepository);
     }
 
     @Test
@@ -54,7 +67,15 @@ public class CustomerServiceTest {
 
     @Test
     void test_saveCustomer() throws Exception {
-        CustomerDTO dto = new CustomerDTO(2L, "Alejandro", "Valls", 39, "30307509");
+        CustomerDTO dto = CustomerDTO.builder()
+            .id(2L)
+            .name("Alejandro")
+            .lastname("Valls")
+            .age(39)
+            .identification("30307509")
+            .dealerId(1L)
+            .build();
+
         this.customerService.saveCustomer(dto);
 
         verify(customerRepository, times(1)).findByIdentification("30307509");
@@ -72,7 +93,13 @@ public class CustomerServiceTest {
                 .build());
 
         assertThrows(Exception.class, () -> {
-            CustomerDTO dto = new CustomerDTO(2L, "Alejandro", "Valls", 39, "30307509");
+            CustomerDTO dto = CustomerDTO.builder()
+                    .id(2L)
+                    .name("Alejandro")
+                    .lastname("Valls")
+                    .age(39)
+                    .identification("30307509")
+                    .build();
             this.customerService.saveCustomer(dto);
         });
     }

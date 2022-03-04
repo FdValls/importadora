@@ -1,6 +1,5 @@
 package com.fdvalls.importadora.repository;
 
-import java.util.List;
 
 import com.fdvalls.importadora.model.Customer;
 
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Customer findCustomerById(Long id);
-
-    List<Customer> findAll();
 
     Customer findByIdentification(String identification);
 

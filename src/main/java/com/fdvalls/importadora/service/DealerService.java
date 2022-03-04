@@ -1,11 +1,9 @@
 package com.fdvalls.importadora.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fdvalls.importadora.dto.DealerDTO;
 import com.fdvalls.importadora.dto.SocialNetworkDTO;
-import com.fdvalls.importadora.exception.NotExist;
 import com.fdvalls.importadora.model.Dealer;
 import com.fdvalls.importadora.model.SocialNetwork;
 import com.fdvalls.importadora.repository.DealerRepository;
@@ -34,12 +32,20 @@ public class DealerService {
     }
 
     private DealerDTO transformModelToDTO(Dealer d) {
+        List<SocialNetworkDTO> networks = d.getNetworks().stream()
+        .map(snts -> SocialNetworkDTO.builder()
+                .description(snts.getDescription())
+                .url(snts.getUrl())
+                .build())
+        .toList();
+
         return DealerDTO.builder()
                 .id(d.getId())
                 .razonSocial(d.getRazonSocial())
                 .cuil(d.getCuil())
                 .address(d.getAddress())
                 .telephone(d.getTelephone())
+                .socialNetworks(networks)
                 .build();
     }
 
@@ -86,11 +92,11 @@ public class DealerService {
 
     }
 
-    public List<Dealer> findAllDealers() throws Exception {
+    public List<DealerDTO> findAllDealers() throws Exception {
         if (this.dealerRepository.findAll().isEmpty()) {
             throw new Exception("List null");
         }
-        return this.dealerRepository.findAll();
+        return this.dealerRepository.findAll().stream().map(this::transformModelToDTO).toList();
     }
 
     public DealerDTO update(Long id, DealerDTO dto) {

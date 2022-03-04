@@ -2,7 +2,6 @@ package com.fdvalls.importadora.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -38,17 +37,20 @@ public class DealerServiceTest {
         MockitoAnnotations.openMocks(this);
         this.customers = new ArrayList<>();
         this.customers.add(new Customer(2l, "Marcelo", "Valls", 29, "37171405", null));
-        when(dealerRepository.findDealerById(eq(1L)))
-                .thenReturn(Dealer.builder()
-                        .id(1l)
-                        .razonSocial("Motors-Valls")
-                        .cuil("20-35323873-7")
-                        .address("Mariano Acha 1066")
-                        .telephone("1123029425")
-                        .networks(null)
-                        .motorcycles(null)
-                        .customers(null)
-                        .build());
+        Dealer dealer = Dealer.builder()
+                .id(1l)
+                .razonSocial("Motors-Valls")
+                .cuil("20-35323873-7")
+                .address("Mariano Acha 1066")
+                .telephone("1123029425")
+                .networks(new ArrayList<>())
+                .motorcycles(new ArrayList<>())
+                .customers(new ArrayList<>())
+                .build();
+        when(dealerRepository.findDealerById(1L)).thenReturn(dealer);
+        when(dealerRepository.findDealerByCuil("24-12081016-7")).thenReturn(dealer);
+
+        when(dealerRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         this.dealerService = new DealerService(dealerRepository, socialNetworkService, socialNetworkRepository);
     }
@@ -69,7 +71,15 @@ public class DealerServiceTest {
 
     @Test
     void test_saveDealer() throws Exception {
-        DealerDTO dto = new DealerDTO(2l, "Hell-Motors", "24-12081016-7", "Avalos 1277", "1123029425");
+        DealerDTO dto = DealerDTO.builder()
+            .id(21L)
+            .razonSocial("Hell-Motors")
+            .cuil("20-37171405-8")
+            .address("Avalos 1277")
+            .telephone("112309425")
+            .socialNetworks(new ArrayList<>())
+            .build();
+        
         this.dealerService.saveDealer(dto);
 
         verify(dealerRepository, times(1)).save(any());
@@ -77,8 +87,15 @@ public class DealerServiceTest {
 
     @Test
     void test_saveDealerIdAlreadyExists() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DealerDTO dto = new DealerDTO(1l, "Motors-Valls", "20-35323873-7", "Mariano Acha 1066", "1123029425");
+        assertThrows(Exception.class, () -> {
+            DealerDTO dto = DealerDTO.builder()
+                .id(1L)
+                .razonSocial("Hell-Motors")
+                .cuil("24-12081016-7")
+                .address("Avalos 1277")
+                .telephone("112309425")
+                .socialNetworks(new ArrayList<>())
+                .build();
             this.dealerService.saveDealer(dto);
         });
     }

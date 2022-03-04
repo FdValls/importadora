@@ -15,4 +15,5 @@ public class SocialNetworkDTO {
     private String description;
     private String url;
     
+    
 }
