@@ -19,5 +19,6 @@ public class DealerDTO {
     private String address;
     private String telephone;
     private List<SocialNetworkDTO> socialNetworks;
+    private Long importerId;
     
 }

@@ -52,13 +52,4 @@ public class Dealer {
         inverseJoinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id") })
     private List<Customer> customers;
 
-    //Esto lo vi en internet, es lo que te comente que difiere un poco a como lo venia haciendo
-    // @ManyToMany(cascade = {
-    //         CascadeType.PERSIST,
-    //         CascadeType.MERGE
-    // })
-    // @JoinTable(name = "dealer_customer", joinColumns = { @JoinColumn(name = "dealer_id", referencedColumnName = "id") }, inverseJoinColumns = {
-    //         @JoinColumn(name = "customer_id", referencedColumnName = "id") })
-    // private Set<Customer> customers;
-
 }

@@ -3,6 +3,7 @@ package com.fdvalls.importadora.service;
 import java.util.List;
 
 import com.fdvalls.importadora.dto.EngineDTO;
+import com.fdvalls.importadora.exception.NotExist;
 import com.fdvalls.importadora.model.Engine;
 import com.fdvalls.importadora.repository.EngineRepository;
 
@@ -55,7 +56,7 @@ public class EngineService {
     public EngineDTO delete(Long id) throws Exception {
         Engine engineDelete = this.engineRepository.findEngineById(id);
         if (engineDelete == null) {
-            throw new Exception("id not exist");
+            throw new NotExist("id not exist");
         }
         this.engineRepository.delete(engineDelete);
         return this.transformModelToDTO(engineDelete);

@@ -13,9 +13,21 @@ import lombok.NoArgsConstructor;
 public class MotorcycleDTO {
 
     private Long id;
-    private String brand; // marca
-    private String engineBrand;
-    private String enginePower;
+    private String brand; 
+    private String chasis;
     private String domain;
+    private boolean isNew;
+    private int kms;
+    private int weight;
+    private int year;
+
+    private Long dealerId;
+    private Long engineId;
+    private Long importerId;
+    private Long wheelId;
+
+    public boolean getIsNew(){
+        return this.isNew;
+    }
 
 }

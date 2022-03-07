@@ -1,9 +1,14 @@
 package com.fdvalls.importadora.service;
 
+import java.util.List;
+
 import com.fdvalls.importadora.dto.WheelDTO;
 import com.fdvalls.importadora.model.Wheel;
 import com.fdvalls.importadora.repository.WheelRepository;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class WheelService {
 
     private final WheelRepository wheelRepository;
@@ -19,19 +24,23 @@ public class WheelService {
     }
 
     private WheelDTO transformModelToDTO(Wheel wheel) {
-        return new WheelDTO(wheel.getId(), wheel.getMarca(), wheel.getRodado());
+        return new WheelDTO(wheel.getId(), wheel.getBrand(), wheel.getFrontDiameter(), wheel.getBackDiameter());
     }
 
-    public void saveWheel(WheelDTO dto) {
-        if (this.wheelRepository.findWheelById(dto.getId()) != null) {
-            throw new IllegalArgumentException();
-        }
-        this.wheelRepository.save(Wheel.builder()
+    public WheelDTO saveWheel(WheelDTO dto) {
+        return this.transformModelToDTO(this.wheelRepository.save(Wheel.builder()
                 .id(dto.getId())
-                .marca(dto.getBrand())
-                .rodado(dto.getRolling())
-                .build());
+                .brand(dto.getBrand())
+                .frontDiameter(dto.getFrontDiameter())
+                .backDiameter(dto.getBackDiameter())
+                .build()));
 
     }
+
+    public List<WheelDTO> findAllWheels() {
+        return this.wheelRepository.findAll().stream().map(this::transformModelToDTO).toList();
+    }
+
+
 
 }

@@ -17,4 +17,5 @@ public class CustomerDTO {
     private Integer age;
     private String identification; //dni
     private Long dealerId;
+    private Long motorcycleId;
 }

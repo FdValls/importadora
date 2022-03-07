@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import com.fdvalls.importadora.dto.MotorcycleDTO;
 import com.fdvalls.importadora.model.Engine;
 import com.fdvalls.importadora.model.Motorcycle;
+import com.fdvalls.importadora.repository.EngineRepository;
 import com.fdvalls.importadora.repository.MotorcycleRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,7 @@ public class MotorcycleServiceTest {
 
     @Mock
     private MotorcycleRepository motorcycleRepository;
+    private EngineRepository engineRepository;
     private MotorcycleService motorcycleService;
 
     @BeforeEach
@@ -40,7 +42,7 @@ public class MotorcycleServiceTest {
                         .domain("A123ABC")
                         .build());
 
-        this.motorcycleService = new MotorcycleService(motorcycleRepository);
+        this.motorcycleService = new MotorcycleService(motorcycleRepository, engineRepository);
     }
 
     @Test

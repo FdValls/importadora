@@ -13,6 +13,7 @@ public class WheelDTO {
     
     private Long id;
     private String brand;
-    private Integer rolling;
+    private String frontDiameter ;
+    private String backDiameter;
 
 }

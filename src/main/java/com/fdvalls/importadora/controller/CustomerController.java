@@ -3,13 +3,9 @@ package com.fdvalls.importadora.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.fdvalls.importadora.dto.CustomerDTO;
-import com.fdvalls.importadora.exception.AlreadyExists;
-import com.fdvalls.importadora.exception.NotExist;
-import com.fdvalls.importadora.exception.NotFoundException;
 import com.fdvalls.importadora.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +34,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllCustomers(HttpServletRequest request) throws Exception {
+    public ResponseEntity<?> getAllCustomers(HttpServletRequest request) {
         return ResponseEntity.ok().body(this.customerService.findAllCustomers());
     }
 
@@ -46,21 +42,13 @@ public class CustomerController {
     public ResponseEntity<?> update(HttpServletRequest request,
             @PathVariable("id") Long id,
             @RequestBody CustomerDTO dto) throws Exception {
-        try {
-            return ResponseEntity.ok().body(this.customerService.update(id, dto));
-        } catch (Exception e) {
-            throw new NotExist(e.getMessage());
-        }
+        return ResponseEntity.ok().body(this.customerService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(HttpServletRequest request,
             @PathVariable("id") Long id) throws Exception {
-        try {
-            return ResponseEntity.ok().body(this.customerService.delete(id));
-        } catch (Exception e) {
-            throw new NotFoundException(e.getMessage());
-        }
+        return ResponseEntity.ok().body(this.customerService.delete(id));
     }
 
 }

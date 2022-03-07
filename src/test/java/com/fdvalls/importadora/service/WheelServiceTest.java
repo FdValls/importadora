@@ -28,8 +28,9 @@ public class WheelServiceTest {
         when(wheelRepository.findWheelById(eq(1L)))
                 .thenReturn(Wheel.builder()
                         .id(1L)
-                        .marca("Michelin Primacy 4 103Y")
-                        .rodado(17)
+                        .brand("Michelin Primacy 4 103Y")
+                        .frontDiameter("17")
+                        .backDiameter("15")
                         .build());
 
         this.wheelService = new WheelService(wheelRepository);
@@ -43,7 +44,7 @@ public class WheelServiceTest {
 
     @Test
     void test_saveWheel(){
-        WheelDTO dto = new WheelDTO(2L, "Pirelli Super City", 17);
+        WheelDTO dto = new WheelDTO(2L, "Pirelli Super City", "17","15");
         this.wheelService.saveWheel(dto);
 
            verify(wheelRepository, times(1)).save(any());

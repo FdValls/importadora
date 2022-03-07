@@ -2,10 +2,6 @@ package com.fdvalls.importadora.dto;
 
 import java.util.List;
 
-import com.fdvalls.importadora.model.Dealer;
-import com.fdvalls.importadora.model.Motorcycle;
-import com.fdvalls.importadora.model.SocialNetwork;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +19,6 @@ public class ImporterDTO {
     private String address;
     private String telephone;
     private String country;
-    // private List<SocialNetwork> networks;
-    // private List<Motorcycle> motorcycles;
-    // private List<Dealer> dealers;
+    private List<SocialNetworkDTO> networks;
+
 }

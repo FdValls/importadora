@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,8 +35,9 @@ public class Motorcycle {
     @OneToOne
     @JoinColumn(name = "engine_id")
     private Engine engine;
-    @OneToMany(mappedBy = "motorcycle")
-    private List<Wheel> wheels;
+    @OneToOne
+    @JoinColumn(name = "wheel_id")
+    private Wheel wheel;
     @Column(name = "domain")
     private String domain;
     @Column(name = "brand")
@@ -49,17 +49,24 @@ public class Motorcycle {
     @Column(name = "is_new")
     private boolean isNew;
     @Column(name = "weigth")
-    private int weigth;
+    private int weight;
     @ManyToMany
-    @JoinTable(name = "motorcycle_customer",
-    joinColumns = {@JoinColumn(name = "motorcycle_id", referencedColumnName = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")})
+    @JoinTable(name = "motorcycle_customer", joinColumns = {
+            @JoinColumn(name = "motorcycle_id", referencedColumnName = "id") }, inverseJoinColumns = {
+            @JoinColumn(name = "customer_id", referencedColumnName = "id") })
     private List<Customer> customers;
-    @ManyToOne
-    @JoinColumn(name = "dealer_id")
-    private Dealer dealer;
     @ManyToOne
     @JoinColumn(name = "importer_id")
     private Importer importer;
-   
+    @ManyToOne
+    @JoinColumn(name = "dealer_id")
+    private Dealer dealer;
+
+    public boolean getIsNew() {
+        return this.isNew;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
 }

@@ -58,8 +58,8 @@ public class ImporterServiceTest {
     }
 
     @Test
-    void test_saveImporter() {
-        ImporterDTO dto = new ImporterDTO(2l, "Spring-Motors", "31-254698965-7", "Av.Long 4688","1164978897", "Canada");
+    void test_saveImporter() throws Exception {
+        ImporterDTO dto = new ImporterDTO(2l, "Spring-Motors", "31-254698965-7", "Av.Long 4688","1164978897", "Canada",null,null);
         this.importerService.saveImporter(dto);
 
         verify(importerRepository, times(1)).save(any());

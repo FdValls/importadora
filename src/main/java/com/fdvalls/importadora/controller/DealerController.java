@@ -3,7 +3,6 @@ package com.fdvalls.importadora.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.fdvalls.importadora.dto.DealerDTO;
-import com.fdvalls.importadora.exception.AlreadyExists;
 import com.fdvalls.importadora.exception.NotFoundException;
 import com.fdvalls.importadora.service.DealerService;
 
@@ -29,15 +28,11 @@ public class DealerController {
     @PostMapping
     public ResponseEntity<?> createDealer(HttpServletRequest request, @RequestBody DealerDTO dealerDTO)
             throws Exception {
-        try {
-            return ResponseEntity.ok().body(this.dealerService.saveDealer(dealerDTO));
-        } catch (Exception e) {
-            throw new AlreadyExists(e.getMessage());
-        }
+        return ResponseEntity.ok().body(this.dealerService.saveDealer(dealerDTO));
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllDealers() throws Exception {
+    public ResponseEntity<?> getAllDealers() {
         return ResponseEntity.ok().body(this.dealerService.findAllDealers());
     }
 

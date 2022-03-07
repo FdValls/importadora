@@ -14,4 +14,6 @@ public interface ImporterRepository extends JpaRepository<Importer, Long>{
 
     List<Importer> findAll();
 
+    Importer findImporterByCuil(String cuil);
+
 }

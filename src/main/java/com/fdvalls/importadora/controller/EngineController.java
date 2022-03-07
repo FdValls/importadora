@@ -42,11 +42,7 @@ public class EngineController {
 
     @GetMapping()
     public ResponseEntity<?> getAllEngines() throws Exception {
-        try {
-            return ResponseEntity.ok().body(this.engineService.findAllEngines());
-        } catch (Exception e) {
-            throw new NotFoundException(e.getMessage());
-        }
+        return ResponseEntity.ok().body(this.engineService.findAllEngines());
     }
 
     @DeleteMapping("/{id}")

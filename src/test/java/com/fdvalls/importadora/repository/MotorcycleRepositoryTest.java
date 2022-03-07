@@ -41,8 +41,8 @@ public class MotorcycleRepositoryTest {
             assertFalse(motorcycles.isEmpty());
             
             Motorcycle motorcycle = motorcycles.get(0);
-            assertFalse(motorcycle.getWheels().isEmpty());
-            assertEquals("Michelin Primacy 4 103Y", motorcycle.getWheels().get(0).getMarca());
+            assertFalse(motorcycle.getWheels() != null);
+            assertEquals("Michelin Primacy 4 103Y", motorcycle.getBrand());
     }
     
 }

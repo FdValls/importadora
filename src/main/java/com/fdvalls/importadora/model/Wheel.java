@@ -23,16 +23,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "wheel")
 public class Wheel {
 
-    //Del lado de muchos mapeo la otra entidad
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "marca")
-    private String marca;
-    @Column(name = "rodado")
-    private Integer rodado ;
-    @ManyToOne
-    @JoinColumn(name = "motorcycle_id")
-    private Motorcycle motorcycle;
+    private String brand;
+    @Column(name = "frontDiameter")
+    private String frontDiameter ;
+    @Column(name = "backDiameter")
+    private String backDiameter;
 
 }

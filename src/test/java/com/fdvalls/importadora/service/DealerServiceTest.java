@@ -36,7 +36,7 @@ public class DealerServiceTest {
     void setup() {
         MockitoAnnotations.openMocks(this);
         this.customers = new ArrayList<>();
-        this.customers.add(new Customer(2l, "Marcelo", "Valls", 29, "37171405", null));
+        this.customers.add(new Customer(2l, "Marcelo", "Valls", 29, "37171405"));
         Dealer dealer = Dealer.builder()
                 .id(1l)
                 .razonSocial("Motors-Valls")
